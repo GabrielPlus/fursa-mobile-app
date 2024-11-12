@@ -42,6 +42,11 @@ const Layout = () => {
             headerShown:false
         }}
         />
+                <Stack.Screen name="profile/index"
+        options={{
+            headerShown:false
+        }}
+        />
     </Stack>
     </ClerkProvider>
     );

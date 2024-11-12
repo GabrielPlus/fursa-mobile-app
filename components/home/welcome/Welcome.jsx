@@ -1,4 +1,4 @@
-import React, { useState } from "react";  // Ensure useState is imported only once
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import { useRouter } from "expo-router";
-
+import { useUser } from '@clerk/clerk-expo';  // Import useUser from Clerk
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../constants";
 
@@ -16,13 +16,26 @@ const jobTypes = ["Full-time", "Part-time", "Contractor"];
 
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
   const router = useRouter();
+  const { user } = useUser();  // Get the user data
   const [activeJobType, setActiveJobType] = useState("Full-time");
+
+  // State to store user's first and last name
+  const [firstName, setFirstName] = useState(user?.firstName);
+  const [lastName, setLastName] = useState(user?.lastName);
+
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.firstName);
+      setLastName(user.lastName);
+    }
+  }, [user]);
 
   return (
     <View>
       <View style={styles.container}>
-        <Text style={styles.userName}>Hello Adrian</Text>
-        <Text style={styles.welcomeMessage}>Find your perfect job</Text>
+        {/* Display dynamic user's name */}
+        <Text style={styles.userName}>👋 {firstName}</Text>
+        <Text style={styles.welcomeMessage}>Find your perfect Hustle</Text>
       </View>
 
       <View style={styles.searchContainer}>
@@ -68,4 +81,3 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
 };
 
 export default Welcome;
-
