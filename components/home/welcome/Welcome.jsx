@@ -8,11 +8,11 @@ import {
   FlatList,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useUser } from '@clerk/clerk-expo';  // Import useUser from Clerk
+import { useUser } from '@clerk/clerk-expo';  // Import useUser from Cler
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../constants";
 
-const jobTypes = ["Full-time", "Part-time", "Contractor"];
+const jobTypes = ["Full-time", "Part-time", "Contractor", "Hustle", "Home"];
 
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
   const router = useRouter();
@@ -62,7 +62,7 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
           data={jobTypes}
           renderItem={({ item }) => (
             <TouchableOpacity
-              style={styles.tab(activeJobType, item)}
+              style={styles.tab(activeJobType, item)} // Ensure this style doesn't include any borders or lines
               onPress={() => {
                 setActiveJobType(item);
                 router.push(`/search/${item}`);
@@ -74,6 +74,8 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
           keyExtractor={(item) => item}
           contentContainerStyle={{ columnGap: SIZES.small }}
           horizontal
+          ItemSeparatorComponent={null} // Ensure no separator
+          showsHorizontalScrollIndicator={false} // Hide horizontal scrollbar
         />
       </View>
     </View>
