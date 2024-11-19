@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: '100%',
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: 100,
   },
   logo: {
     width: '60%',
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
   textContainer: {
     alignItems: 'center',
     display: 'flex',
+    paddingTop: 10,
   },
   text: {
     fontSize: 30,
