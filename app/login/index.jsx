@@ -95,7 +95,7 @@ export default function LoginScreen() {
         <Text style={styles.text2}>Your gateway to job opportunities in Mombasa</Text>
       </View>
       <Pressable onPress={onPress} style={styles.button}>
-        <Text style={styles.buttontext}>Join Us</Text>
+        <Text style={styles.buttontext}>Join the movement</Text>
       </Pressable>
     </View>
   );
