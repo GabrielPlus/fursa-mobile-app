@@ -54,6 +54,14 @@ const Home = () => {
             headerTitle: "", // To hide the default header title
           }}
         />
+
+       <Drawer.Screen
+          name="JobStatus"
+          component={LogoutScreen}
+          options={{
+            headerTitle: "",
+          }}
+          />
           
         <Drawer.Screen
           name="Logout"
