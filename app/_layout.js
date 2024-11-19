@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import * as SecureStore from 'expo-secure-store'
 
 
+
 const tokenCache = {
     async getToken(key) {
       try {
@@ -36,13 +37,13 @@ const Layout = () => {
         tokenCache={tokenCache}
         publishableKey={publishableKey}>
         <Stack>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="login/index"
-        options={{
+        
+        <Stack.Screen name="index"
+                options={{
             headerShown:false
         }}
         />
-                <Stack.Screen name="profile/index"
+        <Stack.Screen name="login/index"
         options={{
             headerShown:false
         }}
