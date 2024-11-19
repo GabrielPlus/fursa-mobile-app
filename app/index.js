@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import React, { useEffect } from 'react';
-import { View, SafeAreaView, Image } from 'react-native';
+import { View, SafeAreaView, Image, Text } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLORS, icons } from '../constants';
@@ -11,7 +11,7 @@ import LogoutScreen from './screens/logout';
 
 const Home = () => {
   const router = useRouter();
-  const { user } = useUser();  // Fetch user data
+  const { user } = useUser(); // Fetch user data
 
   // Check if the user is logged in
   useEffect(() => {
@@ -30,7 +30,7 @@ const Home = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Navigator
         screenOptions={{
-          headerShadowVisible: false,  // Disable header shadow globally
+          headerShadowVisible: false, // Disable header shadow globally
         }}
       >
         <Drawer.Screen
@@ -41,7 +41,7 @@ const Home = () => {
               // Display user's profile image if available
               <View style={{ marginRight: 10 }}>
                 <Image
-                  source={{ uri: user?.imageUrl || icons.user }}  // Show profile image or fallback
+                  source={{ uri: user?.imageUrl || icons.user }} // Show profile image or fallback
                   style={{
                     width: 40,
                     height: 40,
@@ -51,15 +51,15 @@ const Home = () => {
                 />
               </View>
             ),
-            headerTitle: "", // To hide the default header title
+            headerTitle: () => <Text />, // Avoid empty strings
           }}
         />
-          
+
         <Drawer.Screen
           name="Logout"
           component={LogoutScreen}
           options={{
-            headerTitle: "",
+            headerTitle: () => <Text />, // Avoid empty strings
           }}
         />
       </Drawer.Navigator>
