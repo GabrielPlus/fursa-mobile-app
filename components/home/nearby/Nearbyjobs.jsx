@@ -15,7 +15,7 @@ const Nearbyjobs = () => {
   const fetchJobs = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://192.168.0.108:3000/api/jobs");
+      const response = await fetch("http://192.168.83.46:3000/api/jobs");
       const result = await response.json();
       setData(result);
     } catch (err) {
