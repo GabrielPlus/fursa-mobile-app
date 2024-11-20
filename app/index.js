@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import React, { useEffect } from 'react';
-import { View, SafeAreaView, Image } from 'react-native';
+import { View, SafeAreaView, Image, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLORS, icons } from '../constants';
@@ -12,7 +12,7 @@ import jobstatus from './screens/jobstatus';
 
 const Home = () => {
   const router = useRouter();
-  const { user } = useUser();  // Fetch user data
+  const { user } = useUser(); // Fetch user data
 
   // Check if the user is logged in
   useEffect(() => {
@@ -27,12 +27,41 @@ const Home = () => {
 
   const Drawer = createDrawerNavigator();
 
+  // Custom Drawer Content
+  const CustomDrawerContent = (props) => {
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        {/* Drawer Items */}
+        <DrawerContentScrollView {...props}>
+          <DrawerItemList {...props} />
+        </DrawerContentScrollView>
+
+        {/* Button at the Bottom */}
+        <TouchableOpacity
+          style={{
+            padding: 16,
+            backgroundColor: COLORS.primary,
+            marginBottom: 20,
+            borderRadius: 8,
+            alignItems: 'center',
+          }}
+          onPress={() => {
+            router.push('/settings'); // Navigate to settings screen or desired action
+          }}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Logout</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Navigator
         screenOptions={{
-          headerShadowVisible: false,  // Disable header shadow globally
+          headerShadowVisible: false, // Disable header shadow globally
         }}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen
           name="Home"
@@ -42,7 +71,7 @@ const Home = () => {
               // Display user's profile image if available
               <View style={{ marginRight: 10 }}>
                 <Image
-                  source={{ uri: user?.imageUrl || icons.user }}  // Show profile image or fallback
+                  source={{ uri: user?.imageUrl || icons.user }} // Show profile image or fallback
                   style={{
                     width: 40,
                     height: 40,
@@ -55,15 +84,13 @@ const Home = () => {
             headerTitle: "", // To hide the default header title
           }}
         />
-
-       <Drawer.Screen
+        <Drawer.Screen
           name="JobStatus"
           component={jobstatus}
           options={{
             headerTitle: "",
           }}
-          />
-          
+        />
         <Drawer.Screen
           name="Logout"
           component={LogoutScreen}
@@ -77,6 +104,8 @@ const Home = () => {
 };
 
 export default Home;
+
+
 
 
 
