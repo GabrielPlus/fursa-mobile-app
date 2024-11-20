@@ -35,6 +35,7 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
       <View style={styles.container}>
         {/* Display dynamic user's name */}
         <Text style={styles.userName}>👋 {firstName}</Text>
+        <Text style={styles.welcomeMessage}>Welcome to Fursa</Text>
         <Text style={styles.welcomeMessage}>Find your perfect Hustle</Text>
       </View>
 
