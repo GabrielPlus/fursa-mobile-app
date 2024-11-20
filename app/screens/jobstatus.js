@@ -1,26 +1,12 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react'
+import { Text, View } from 'react-native'
 
-const JobStatusScreen = () => {
+function jobstatus() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Job Status Screen</Text>
+    <View>
+       <Text>JobStatusScreen</Text>
     </View>
-  );
-};
+  )
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f9f9f9',
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-});
-
-export default JobStatusScreen;
+export default jobstatus

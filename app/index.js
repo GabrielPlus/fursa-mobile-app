@@ -8,6 +8,7 @@ import { COLORS, icons } from '../constants';
 import { useUser } from '@clerk/clerk-expo';
 import DashboardScreen from './screens/index';
 import LogoutScreen from './screens/logout';
+import jobstatus from './screens/jobstatus';
 
 const Home = () => {
   const router = useRouter();
@@ -85,7 +86,7 @@ const Home = () => {
         />
         <Drawer.Screen
           name="JobStatus"
-          component={LogoutScreen}
+          component={jobstatus}
           options={{
             headerTitle: "",
           }}
