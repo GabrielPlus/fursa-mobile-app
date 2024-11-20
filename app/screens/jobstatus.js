@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
-function jobstatus() {
+function Jobstatus() {
   return (
     <View>
        <Text>JobStatusScreen</Text>
@@ -9,4 +9,4 @@ function jobstatus() {
   )
 }
 
-export default jobstatus
+export default Jobstatus
