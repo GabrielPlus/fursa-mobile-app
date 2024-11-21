@@ -35,7 +35,7 @@ const JobDetails = () => {
   const fetchJobDetails = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`http://192.168.0.103:3000/api/jobs/${id}`);
+      const response = await fetch(`http://192.168.0.108:3000/api/jobs/${id}`);
       if (!response.ok) {
         throw new Error("Failed to fetch job details");
       }
