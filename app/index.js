@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import React, { useEffect } from 'react';
-import { View, SafeAreaView, Image } from 'react-native';
+import { View, SafeAreaView, Image, Text, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { COLORS, icons } from '../constants';
@@ -12,7 +12,7 @@ import jobstatus from './screens/jobstatus';
 
 const Home = () => {
   const router = useRouter();
-  const { user } = useUser();  // Fetch user data
+  const { user } = useUser(); // Fetch user data
 
   // Check if the user is logged in
   useEffect(() => {
@@ -27,12 +27,47 @@ const Home = () => {
 
   const Drawer = createDrawerNavigator();
 
+  // Custom Drawer Content
+  // Custom Drawer Content
+const CustomDrawerContent = (props) => {
+  const { navigation } = props;  // Destructure navigation from props
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      {/* Drawer Items */}
+      <DrawerContentScrollView {...props}>
+        <DrawerItemList {...props} />
+      </DrawerContentScrollView>
+
+      {/* Button at the Bottom */}
+      <TouchableOpacity
+        style={{
+          padding: 15,
+          backgroundColor: COLORS.button,
+          marginBottom: 20,
+          width: 200,
+          borderRadius: 8,
+          marginLeft: 50,
+          alignItems: 'center',
+        }}
+        onPress={() => {
+          navigation.navigate('Logout');  // Navigate to LogoutScreen instead of 'Logout'
+        }}
+      >
+        <Text style={{ color: 'white', fontWeight: 'bold' }}>Logout</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+};
+
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Drawer.Navigator
         screenOptions={{
-          headerShadowVisible: false,  // Disable header shadow globally
+          headerShadowVisible: false, // Disable header shadow globally
         }}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen
           name="Home"
@@ -42,7 +77,7 @@ const Home = () => {
               // Display user's profile image if available
               <View style={{ marginRight: 10 }}>
                 <Image
-                  source={{ uri: user?.imageUrl || icons.user }}  // Show profile image or fallback
+                  source={{ uri: user?.imageUrl || icons.user }} // Show profile image or fallback
                   style={{
                     width: 40,
                     height: 40,
@@ -55,15 +90,13 @@ const Home = () => {
             headerTitle: "", // To hide the default header title
           }}
         />
-
-       <Drawer.Screen
+        <Drawer.Screen
           name="JobStatus"
           component={jobstatus}
           options={{
             headerTitle: "",
           }}
-          />
-          
+        />
         <Drawer.Screen
           name="Logout"
           component={LogoutScreen}
@@ -79,25 +112,21 @@ const Home = () => {
 export default Home;
 
 
-
-
-
 // import 'react-native-gesture-handler';
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
+// import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 // import React, { useEffect } from 'react';
-// import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native';
-// import { Link, Stack, useRouter } from 'expo-router';
+// import { View, SafeAreaView, Image, Text, TouchableOpacity } from 'react-native';
+// import { useRouter } from 'expo-router';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-// import { COLORS, icons, SIZES } from '../constants';
-// import { Nearbyjobs, Popularjobs, ScreenHeaderBtn, Welcome } from '../components';
+// import { COLORS, icons } from '../constants';
 // import { useUser } from '@clerk/clerk-expo';
-// import DashboardScreen from './screens';
-
+// import DashboardScreen from './screens/index';
+// import LogoutScreen from './screens/logout';
+// import jobstatus from './screens/jobstatus';
 
 // const Home = () => {
 //   const router = useRouter();
-//   const { user } = useUser();  // Fetch user data
+//   const { user } = useUser(); // Fetch user data
 
 //   // Check if the user is logged in
 //   useEffect(() => {
@@ -109,53 +138,81 @@ export default Home;
 //     };
 //     checkAuthStatus();
 //   }, [router]);
-  
+
 //   const Drawer = createDrawerNavigator();
+
+//   // Custom Drawer Content
+//   const CustomDrawerContent = (props) => {
+//     return (
+//       <SafeAreaView style={{ flex: 1 }}>
+//         {/* Drawer Items */}
+//         <DrawerContentScrollView {...props}>
+//           <DrawerItemList {...props} />
+//         </DrawerContentScrollView>
+
+//         {/* Button at the Bottom */}
+//         <TouchableOpacity
+//           style={{
+//             padding: 16,
+//             backgroundColor: COLORS.primary,
+//             marginBottom: 20,
+//             borderRadius: 8,
+//             alignItems: 'center',
+//           }}
+//           onPress={() => {
+//             router.push('/settings'); // Navigate to settings screen or desired action
+//           }}
+//         >
+//           <Text style={{ color: 'white', fontWeight: 'bold' }}>Logout</Text>
+//         </TouchableOpacity>
+//       </SafeAreaView>
+//     );
+//   };
 
 //   return (
 //     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-//       <NavigationContainer>
-//         <Drawer.Navigator>
-//           <Drawer.Screen name="Dashboard" component={DashboardScreen} />
-//         </Drawer.Navigator>
-//       </NavigationContainer>
-//       <Stack.Screen
-//         options={{
-//           headerStyle: { backgroundColor: COLORS.lightWhite },
-//           headerShadowVisible: false,
-//           headerLeft: () => (
-//             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-//               <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
-//               {/* <Link href="/profile" style={{ marginLeft: 10 }}>
-//                 <Text style={{ color: COLORS.primary }}>Profile</Text>
-//               </Link> */}
-//             </View>
-//           ),
-//           headerRight: () => (
-//             // Display user's profile image if available
-//             <View style={{ marginRight: 10 }}>
-//               <Image
-//                 source={{ uri: user?.imageUrl || icons.user }}
-//                 style={{
-//                   width: 40,
-//                   height: 40,
-//                   borderRadius: 20,
-//                   backgroundColor: 'grey',
-//                 }}
-//               />
-//             </View>
-//           ),
-//           headerTitle: ""
+//       <Drawer.Navigator
+//         screenOptions={{
+//           headerShadowVisible: false, // Disable header shadow globally
 //         }}
-//       />
-
-//       <ScrollView showsVerticalScrollIndicator={false}>
-//         <View style={{ flex: 1, padding: SIZES.medium }}>
-//           <Welcome />
-//           <Popularjobs />
-//           <Nearbyjobs />
-//         </View>
-//       </ScrollView>
+//         drawerContent={(props) => <CustomDrawerContent {...props} />}
+//       >
+//         <Drawer.Screen
+//           name="Home"
+//           component={DashboardScreen}
+//           options={{
+//             headerRight: () => (
+//               // Display user's profile image if available
+//               <View style={{ marginRight: 10 }}>
+//                 <Image
+//                   source={{ uri: user?.imageUrl || icons.user }} // Show profile image or fallback
+//                   style={{
+//                     width: 40,
+//                     height: 40,
+//                     borderRadius: 20,
+//                     backgroundColor: 'grey',
+//                   }}
+//                 />
+//               </View>
+//             ),
+//             headerTitle: "", // To hide the default header title
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="JobStatus"
+//           component={jobstatus}
+//           options={{
+//             headerTitle: "",
+//           }}
+//         />
+//         <Drawer.Screen
+//           name="Logout"
+//           component={LogoutScreen}
+//           options={{
+//             headerTitle: "",
+//           }}
+//         />
+//       </Drawer.Navigator>
 //     </SafeAreaView>
 //   );
 // };

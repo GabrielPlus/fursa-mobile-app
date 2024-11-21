@@ -1,7 +1,12 @@
 const COLORS = {
   primary: "#312651",
   secondary: "#444262",
+<<<<<<< HEAD
   tertiary: "#345797",
+=======
+  tertiary: "#FF7754",
+  button: "#2c6fc3",
+>>>>>>> 5587e411d23d7855f2c5f3f0336b296971d9f1d2
 
   gray: "#83829A",
   gray2: "#C1C0C8",
